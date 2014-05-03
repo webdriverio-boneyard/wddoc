@@ -1,6 +1,6 @@
 var assert = require('assert');
 var should = require('should');
-var wddoc = require('../index');
+var wddoc  = require('../index');
 
 var formatter = function(docfile) {
     var docfile = wddoc.defaultFormatter(docfile);
@@ -25,5 +25,5 @@ describe.only('wddoc', function() {
 
             done();
         });
-    })
-})
+    });
+});
