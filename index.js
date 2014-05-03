@@ -1,1 +1,1 @@
-module.exports = require('./lib/markdox');
+module.exports = require('./lib/wddoc');

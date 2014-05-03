@@ -1,12 +1,13 @@
 var assert = require('assert');
 var should = require('should');
-var markdox = require('../index');
+var wddoc = require('../index');
 
-describe('Markdox', function(){
+describe('wddoc', function(){
   it('should transform h1, h2 (...) into markdown title', function(done){
-    var file = __dirname + '/fixtures/transformTitle.coffee';
+    var file = __dirname + '/fixtures/transformTitle.js';
+    var options = {template: __dirname + '/../templates/markdox.md.ejs'};
 
-    markdox.process(file, function(err, output){
+    wddoc.process(file, options, function(err, output){
       should.not.exist(err);
 
       output.should.match(/\n# My first title/);
