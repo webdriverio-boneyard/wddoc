@@ -10,16 +10,17 @@ var program = require('commander'),
 // options
 program
     .version(wddoc.version)
-    .option('-o, --output <filepath>', 'specify filepath to output [/path/to/output.md]', String, process.cwd() + '/output.md')
+    .option('-o, --outputDir <filepath>', 'specify path to output [/path/to/output]', String, process.cwd() + '/dest')
+    .option('-i, --inputDir <filepath>', 'specify path to your lib [./lib/**/*.js]', String, process.cwd() + '/lib/**/*.js')
     .option('-t, --template <filepath>', 'specify filepath to template [/templates/template.md.ejs]', String, process.cwd() + '/templates/template.md.ejs')
-    .command('wddoc [options]... files...');
+    .command('wddoc [options]...');
 
 // examples
 program.on('--help', function() {
     console.log('  Examples:');
     console.log('');
-    console.log('    $ wddoc myfile.js');
-    console.log('    $ wddoc myfile1.js myfile2.js');
+    console.log('    $ wddoc -i ./src/*.js -o ./docs');
+    console.log('    $ wddoc -t myTemplate.ejs');
     console.log('');
 });
 
@@ -27,8 +28,9 @@ program.on('--help', function() {
 program.parse(process.argv);
 
 // Process wddoc
-wddoc.process(program.args, {
-    output: program.output,
+wddoc.process({
+    outputDir: program.outputDir,
+    inputDir: program.inputDir,
     template: program.template
 }, function() {
     console.log('Documentation generated.');
