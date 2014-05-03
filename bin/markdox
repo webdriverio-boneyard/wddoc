@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander')
+  , util = require('util')
+  , format = util.format
+  , wddoc = require('../');
+
+// options
+program
+  .version(wddoc.version)
+  .option('-o, --output <filepath>', 'specify filepath to output [/path/to/output.md]', String, process.cwd() + '/output.md')
+  .option('-t, --template <filepath>', 'specify filepath to template [/templates/template.md.ejs]', String, process.cwd() + '/templates/template.md.js')
+  .command('wddoc [options]... files...');
+
+// examples
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ wddoc myfile.js');
+  console.log('    $ wddoc myfile1.js myfile2.js');
+  console.log('');
+});
+
+// parse argv
+program.parse(process.argv);
+
+// Process wddoc
+wddoc.process(program.args, {output: program.output,template: program.template}, function(){
+  console.log('Documentation generated.');
+});
