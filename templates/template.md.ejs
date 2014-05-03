@@ -3,11 +3,17 @@
 <? docfile.javadoc.forEach(function(command) { ?>
     <?= command.description ?>
 
+    ### Usage
+
+    ```js
+    <?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
+    ```
+
     <? if (command.paramTags.length > 0) { ?>
         ### Parameters:
         | Param | Type | Details |
         | ----- | ---- | ------- |
-        <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes ?> | <?= paramTag.description ?> |
+        <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes.replace('=','') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?> (optional)<? } ?> | <?= paramTag.description ?> |
         <? }) ?>
     <? } ?>
 
