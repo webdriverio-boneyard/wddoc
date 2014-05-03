@@ -1,26 +1,21 @@
-<? docfiles.forEach(function(doc) { ?>
-# <?= doc.filename.slice(0,-3) ?>
+# <?= docfile.filename.slice(0,-3) ?>
 
-<? doc.javadoc.forEach(function(command) { ?>
-<?= command.description ?>
+<? docfile.javadoc.forEach(function(command) { ?>
+    <?= command.description ?>
 
-<? if (command.paramTags.length > 0) { ?>
-    ### Parameters:
-    | Param | Type | Details |
-    | ----- | ---- | ------- |
-    <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes ?> | <?= paramTag.description ?> |
-    <? }) ?>
-<? } ?>
+    <? if (command.paramTags.length > 0) { ?>
+        ### Parameters:
+        | Param | Type | Details |
+        | ----- | ---- | ------- |
+        <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes ?> | <?= paramTag.description ?> |
+        <? }) ?>
+    <? } ?>
 
-<? uses = command.raw.tags.filter(function(raw){ return raw.type === 'uses' })[0].string.split(',') ?>
-<? if (uses.length > 0) { ?>
-    ### Uses:
-    <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
-    <? }) ?>
-<? } ?>
-
+    <? uses = command.raw.tags.filter(function(raw){ return raw.type === 'uses' })[0].string.split(',') ?>
+    <? if (uses.length > 0) { ?>
+        ### Uses:
+        <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
+        <? }) ?>
+    <? } ?>
 
 <? }) ?>
-<? }) ?>
-
-<?= JSON.stringify(uses) ?>

@@ -10,7 +10,7 @@ var program = require('commander'),
 // options
 program
     .version(wddoc.version)
-    .option('-o, --outputDir <filepath>', 'specify path to output [/path/to/output]', String, process.cwd() + '/dest')
+    .option('-o, --outputDir <filepath>', 'specify path to output [/path/to/output]', String, process.cwd() + '/dest/')
     .option('-i, --inputDir <filepath>', 'specify path to your lib [./lib/**/*.js]', String, process.cwd() + '/lib/**/*.js')
     .option('-t, --template <filepath>', 'specify filepath to template [/templates/template.md.ejs]', String, process.cwd() + '/templates/template.md.ejs')
     .command('wddoc [options]...');
