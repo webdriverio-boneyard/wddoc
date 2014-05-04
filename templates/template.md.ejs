@@ -17,8 +17,9 @@
         <? }) ?>
     <? } ?>
 
-    <? uses = command.raw.tags.filter(function(raw){ return raw.type === 'uses' })[0].string.split(',') ?>
-    <? if (uses.length > 0) { ?>
+    <? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }) ?>
+    <? uses = tag.length ? tag[0].string.split(',') : null ?>
+    <? if (uses && uses.length > 0) { ?>
         ### Uses:
         <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
         <? }) ?>
