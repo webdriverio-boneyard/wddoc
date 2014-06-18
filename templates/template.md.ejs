@@ -1,32 +1,38 @@
+<? docfile.javadoc.forEach(function(command) { ?>---
+name: <?= docfile.filename.slice(0,-3) ?>
+category: api
+type: <?= command.type ?>
+---
+
 # <?= docfile.filename.slice(0,-3) ?>
 
-<? docfile.javadoc.forEach(function(command) { ?>
-    <?= command.description ?>
+<?= command.description ?>
 
-    <? if(command.description.indexOf('### Usage') > -1) { ?>
+<? if(command.description.indexOf('### Usage') > -1) { ?>
 
-    ### Usage
+### Usage
 
-    ```js
-    <?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
-    ```
+```js
+<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
+```
 
-    <? } ?>
+<? } ?>
 
-    <? if (command.paramTags.length > 0) { ?>
-        ### Parameters:
-        | Param | Type | Details |
-        | ----- | ---- | ------- |
-        <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes.replace('=','') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?> (optional)<? } ?> | <?= paramTag.description ?> |
-        <? }) ?>
-    <? } ?>
+<? if (command.paramTags.length > 0) { ?>
+    ### Parameters:
 
-    <? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }) ?>
-    <? uses = tag.length ? tag[0].string.split(',') : null ?>
-    <? if (uses && uses.length > 0) { ?>
-        ### Uses:
-        <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
-        <? }) ?>
-    <? } ?>
+    | Param | Type | Details |
+    | ----- | ---- | ------- |
+    <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes.replace('=','') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?> (optional)<? } ?> | <?= paramTag.description ?> |
+    <? }) ?>
+<? } ?>
+
+<? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }) ?>
+<? uses = tag.length ? tag[0].string.split(',') : null ?>
+<? if (uses && uses.length > 0) { ?>
+    ### Uses:
+    <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
+    <? }) ?>
+<? } ?>
 
 <? }) ?>
