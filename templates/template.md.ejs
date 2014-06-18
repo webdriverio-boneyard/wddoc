@@ -31,7 +31,7 @@ type: <?= command.type ?>
 <? uses = tag.length ? tag[0].string.split(',') : null ?>
 <? if (uses && uses.length > 0) { ?>
     ### Uses:
-    <? uses.forEach(function(command) { ?>* [<?= command.split('/')[1].trim() ?>](/docs/<?= command.trim() ?>.html)
+    <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/docs/<?= command.trim() ?>.html)
     <? }) ?>
 <? } ?>
 
