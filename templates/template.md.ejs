@@ -1,38 +1,38 @@
-<? docfile.javadoc.forEach(function(command) { ?>---
-name: <?= docfile.filename.slice(0,-3) ?>
-category: api
-type: <?= command.type ?>
+<? command = docfile.javadoc[0]; ?>name: <?= docfile.filename.slice(0,-3) ?>
+category: <?= command.type ?>
+tags: api
 ---
 
 # <?= docfile.filename.slice(0,-3) ?>
 
 <?= command.description ?>
 
-<? if(command.description.indexOf('### Usage') > -1) { ?>
-
 ### Usage
 
 ```js
-<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
+client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
 ```
 
+### Parameters:
+
+| Param | Type | Details |
+| ----- | ---- | ------- |
+<? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name.replace(/\[|\]/g,'') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?><br><span class="label label-warning">optional</span><? } ?> | <?= paramTag.joinedTypes.replace('=','') ?> | <?= paramTag.description ?> |
+<? }) ?>| callback<br><span class="label label-warning">optional</span> | Function | callback function that contains command results and gets called when the command finishes |
+
+<? if (command.examples.length) { ?>
+### Example
+<? command.examples.forEach(function(example) { ?>
+``` javascript <?= example.file ?>
+<?= example.code ?>
+```
+<? }); ?>
 <? } ?>
 
-<? if (command.paramTags.length > 0) { ?>
-    ### Parameters:
-
-    | Param | Type | Details |
-    | ----- | ---- | ------- |
-    <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name ?> | <?= paramTag.joinedTypes.replace('=','') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?> (optional)<? } ?> | <?= paramTag.description ?> |
-    <? }) ?>
-<? } ?>
-
-<? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }) ?>
+<? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }); ?>
 <? uses = tag.length ? tag[0].string.split(',') : null ?>
 <? if (uses && uses.length > 0) { ?>
     ### Uses:
-    <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/docs/<?= command.trim() ?>.html)
+    <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/api/<?= command.trim() ?>/)
     <? }) ?>
 <? } ?>
-
-<? }) ?>
