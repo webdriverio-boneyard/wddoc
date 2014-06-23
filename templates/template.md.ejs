@@ -13,17 +13,17 @@ tags: api
 client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
 ```
 
-### Parameters:
+### Parameters
 
 | Param | Type | Details |
 | ----- | ---- | ------- |
-<? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name.replace(/\[|\]/g,'') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?><br><span class="label label-warning">optional</span><? } ?> | <?= paramTag.joinedTypes.replace('=','') ?> | <?= paramTag.description ?> |
+<? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name.replace(/\[|\]/g,'') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?><br><span class="label label-warning">optional</span><? } ?> | <?= paramTag.joinedTypes.replace('=','').replace(/[|\/]/g,'/') ?> | <?= paramTag.description ?> |
 <? }) ?>| callback<br><span class="label label-warning">optional</span> | Function | callback function that contains command results and gets called when the command finishes |
 
 <? if (command.examples.length) { ?>
 ### Example
 <? command.examples.forEach(function(example) { ?>
-``` javascript <?= example.file ?>
+``` <?= example.format ?> <?= example.file ?>
 <?= example.code ?>
 ```
 <? }); ?>
@@ -32,7 +32,7 @@ client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
 <? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }); ?>
 <? uses = tag.length ? tag[0].string.split(',') : null ?>
 <? if (uses && uses.length > 0) { ?>
-    ### Uses:
+    ### Uses
     <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/api/<?= command.trim() ?>/)
     <? }) ?>
 <? } ?>
