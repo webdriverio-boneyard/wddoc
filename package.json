@@ -25,11 +25,12 @@
     "dox",
     "markdown",
     "webdriver",
-    "webdriverjs"
+    "webdriverjs",
+    "webdriverio"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:webdriverjs/wddoc.git"
+    "url": "git@github.com:webdriverio/wddoc.git"
   },
   "main": "index",
   "license": "MIT",
