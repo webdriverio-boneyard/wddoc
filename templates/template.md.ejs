@@ -33,6 +33,6 @@ client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>)
 <? uses = tag.length ? tag[0].string.split(',') : null ?>
 <? if (uses && uses.length > 0) { ?>
     ### Uses
-    <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/api/<?= command.trim() ?>/)
+    <? uses.forEach(function(command) { ?>* [<?= command.trim() ?>](/api/<?= command.trim() ?>.html)
     <? }) ?>
 <? } ?>
