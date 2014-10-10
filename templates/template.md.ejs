@@ -1,6 +1,6 @@
 <?
 command = docfile.javadoc[0];
-description = command.description.slice(0, 145).replace(/\n/g,' ');
+description = command.description.slice(0, 145).replace(/\n/g,' ').trim();
 
 if(command.description.length > 145) {
     description = description.split(/\s/);
