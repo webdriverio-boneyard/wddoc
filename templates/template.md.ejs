@@ -1,12 +1,13 @@
 <?
 command = docfile.javadoc[0];
-description = command.description.slice(0, 145).replace(/\n/g,' ').trim();
+description = command.description.slice(0, 145).replace(/\n/g,' ');
 
 if(command.description.length > 145) {
     description = description.split(/\s/);
     description.pop();
-    description = description.join(' ').replace(/\s+/g, ' ').trim() + ' ...';
+    description = description.join(' ') + ' ...';
 }
+description = description.replace(/(<([^>]+)>)/ig, ' $2 ').replace(/\s+/g, ' ').replace(/`/g, '').trim();
 ?>name: <?= docfile.filename.slice(0,-3) ?>
 category: <?= command.type ?>
 tags: api
