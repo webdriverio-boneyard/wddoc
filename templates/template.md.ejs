@@ -7,7 +7,7 @@ if(command.description.length > 145) {
     description.pop();
     description = description.join(' ') + ' ...';
 }
-description = description.replace(/(<([^>]+)>)/ig, ' $2 ').replace(/`/g, '').replace(/"/g, '\"').replace(/\s+/g, ' ').trim();
+description = description.replace(/(<([^>]+)>)/ig, ' $2 ').replace(/`/g, '').replace(/"/g, '\\"').replace(/\s+/g, ' ').trim();
 ?>name: <?= docfile.filename.slice(0,-3) ?>
 category: <?= command.type ?>
 tags: api
