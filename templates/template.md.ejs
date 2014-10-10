@@ -5,7 +5,7 @@ description = command.description.slice(0, 145).replace(/\n/g,' ');
 if(command.description.length > 145) {
     description = description.split(/\s/);
     description.pop();
-    description = description.join(' ').trim();
+    description = description.join(' ').replace(/\s+/g, ' ').trim() + ' ...';
 }
 ?>name: <?= docfile.filename.slice(0,-3) ?>
 category: <?= command.type ?>
