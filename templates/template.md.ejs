@@ -1,6 +1,8 @@
 <? command = docfile.javadoc[0]; ?>name: <?= docfile.filename.slice(0,-3) ?>
 category: <?= command.type ?>
 tags: api
+title: WebdriverIO - <?= docfile.filename.slice(0,-3) ?>
+description: "<?= command.description.slice(0, 145).replace(/\n/g,' ') ?><? if(command.description.length > 145) { ?>...<? } ?>"
 ---
 
 # <?= docfile.filename.slice(0,-3) ?>
