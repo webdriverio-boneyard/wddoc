@@ -1,0 +1,38 @@
+<? command = docfile.javadoc[0]; ?><snippet>
+    <content><![CDATA[<?= docfile.filename.slice(0,-3) ?>(<?
+
+if(command.paramTags) {
+    command.paramTags.forEach(function(paramTag) {
+        var name = paramTag.name.replace(/\[|\]/g,'');
+
+        if(paramTag.joinedTypes.indexOf('String') > -1) {
+            ?>'<?= name ?>', <?
+        } else {
+            ?><?= name ?>, <?
+        }
+
+    });
+}
+
+if(command.callbackParameter) {
+
+    ?>${3:function(<?
+
+    command.callbackParameter.forEach(function(parameter, i) {
+        if(i < command.callbackParameter.length - 1) {
+            ?><?= parameter ?>, <?
+        } else {
+            ?><?= parameter ?><?
+        }
+    });
+
+    ?>) {
+	$0
+\}<?
+
+}
+?>)]]></content>
+    <tabTrigger><?= docfile.filename.slice(0,-3) ?></tabTrigger>
+    <scope>source.js</scope>
+    <description>    WebdriverIO - <?= docfile.filename.slice(0,-3) ?>: <?= command.description.length < 50 ? command.description.trim() : command.description.substr(0, 46) + '...' ?></description>
+</snippet>
