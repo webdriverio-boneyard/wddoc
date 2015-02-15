@@ -1,38 +1,41 @@
-<? command = docfile.javadoc[0]; ?><snippet>
+<?
+maxDescriptionLength = 70;
+command = docfile.javadoc[0];
+description = command.description.replace(/\n/g, '');
+description = 'WebdriverIO - ' + description;
+description = description.length < maxDescriptionLength ? description + Array(maxDescriptionLength - description.length + 4).join(' ') : description.substr(0, maxDescriptionLength) + '...';
+description = description.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+?><snippet>
     <content><![CDATA[<?= docfile.filename.slice(0,-3) ?>(<?
 
 if(command.paramTags) {
-    command.paramTags.forEach(function(paramTag) {
+    command.paramTags.forEach(function(paramTag, i) {
         var name = paramTag.name.replace(/\[|\]/g,'');
+        var comma = i < command.paramTags.length - 1 ? ', ' : '';
+        var sqm = paramTag.joinedTypes.indexOf('String') > -1 ? "'" : '';
+        sqm = paramTag.joinedTypes.indexOf('Function') > -1 ? "" : sqm;
 
-        if(paramTag.joinedTypes.indexOf('String') > -1) {
-            ?>'<?= name ?>', <?
-        } else {
-            ?><?= name ?>, <?
-        }
-
+        ?><?= sqm ?>${<?= ++i ?>:<?= name ?>}<?= sqm ?><?= comma ?><?
     });
 }
 
 if(command.callbackParameter) {
 
-    ?>${3:function(<?
+    var start = command.paramTags.length ? ', ' : '';
+    ?>${<?= command.paramTags.length + 1 ?>:<?= start ?>function(<?
 
     command.callbackParameter.forEach(function(parameter, i) {
-        if(i < command.callbackParameter.length - 1) {
-            ?><?= parameter ?>, <?
-        } else {
-            ?><?= parameter ?><?
-        }
+        var comma = i < command.callbackParameter.length - 1 ? ', ' : '';
+        ?><?= parameter.trim() ?><?= comma ?><?
     });
 
     ?>) {
-    $0
-\}<?
-
+	$0
+\}}<?
 }
 ?>)]]></content>
     <tabTrigger><?= docfile.filename.slice(0,-3) ?></tabTrigger>
     <scope>source.js</scope>
-    <description>    WebdriverIO - <?= docfile.filename.slice(0,-3) ?>: <?= command.description.length < 50 ? command.description.trim() : command.description.substr(0, 46) + '...' ?></description>
+    <description><?= description ?></description>
 </snippet>
