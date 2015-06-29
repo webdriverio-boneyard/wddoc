@@ -1,7 +1,7 @@
 {
   "name": "wddoc",
   "description": "wddoc is a documentation generator based on Dox and Markdown with support for JavaScript, CoffeeScript and IcedCoffeeScript.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Charles Bourasseau <charles.bourasseau@gmail.com>",
   "contributors": [],
   "dependencies": {
