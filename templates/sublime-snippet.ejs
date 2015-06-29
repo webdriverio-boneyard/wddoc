@@ -5,9 +5,9 @@ description = command.description.replace(/\n/g, '');
 description = 'WebdriverIO - ' + description;
 description = description.length < maxDescriptionLength ? description + Array(maxDescriptionLength - description.length + 4).join(' ') : description.substr(0, maxDescriptionLength) + '...';
 description = description.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
+commandName = docfile.filename.slice(0,-3);
 ?><snippet>
-    <content><![CDATA[<?= docfile.filename.slice(0,-3) ?>(<?
+    <content><![CDATA[<?= commandName ?>(<?
 
 if(command.paramTags) {
     command.paramTags.forEach(function(paramTag, i) {
@@ -20,22 +20,20 @@ if(command.paramTags) {
     });
 }
 
-if(command.callbackParameter) {
+var callbackParameter = 'result';
+if(commandName.indexOf('is') === 0) {
+    callbackParameter = commandName;
+} else if(commandName.indexOf('get') === 0) {
+    callbackParameter = commandName.slice(3);
+    callbackParameter = commandName.slice(0,1).toLowerCase() + commandName.slice(1);
+}
 
-    var start = command.paramTags.length ? ', ' : '';
-    ?>${<?= command.paramTags.length + 1 ?>:<?= start ?>function(<?
-
-    command.callbackParameter.forEach(function(parameter, i) {
-        var comma = i < command.callbackParameter.length - 1 ? ', ' : '';
-        ?><?= parameter.trim() ?><?= comma ?><?
-    });
-
-    ?>) {
+?>)${<?= command.paramTags.length + 1 ?>:.then(function(<?= callbackParameter ?>) {
 	$0
 \}}<?
 }
 ?>)]]></content>
-    <tabTrigger><?= docfile.filename.slice(0,-3) ?></tabTrigger>
+    <tabTrigger><?= commandName ?></tabTrigger>
     <scope>source.js</scope>
     <description><?= description ?></description>
 </snippet>
