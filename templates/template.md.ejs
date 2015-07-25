@@ -30,7 +30,7 @@ client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>).then(callbac
 | Param | Type | Details |
 | ----- | ---- | ------- |
 <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name.replace(/\[|\]/g,'') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?><br><span class="label label-warning">optional</span><? } ?> | <?= paramTag.joinedTypes.replace('=','').replace(/[|\/]/g,'/') ?> | <?= paramTag.description ?> |
-<? }) ?>| callback<br><span class="label label-warning">optional</span> | Function | callback function that contains command results and gets called when the command finishes |
+<? }) ?>
 
 <? if (command.examples.length) { ?>
 ### Example
