@@ -25,12 +25,14 @@ description: "<?= description ?>"
 client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>).then(callback);
 ```
 
+<? if (command.paramTags.length) { ?>
 ### Parameters
 
 | Param | Type | Details |
 | ----- | ---- | ------- |
 <? command.paramTags.forEach(function(paramTag) { ?>| <?= paramTag.name.replace(/\[|\]/g,'') ?><? if (paramTag.joinedTypes.indexOf('=') > -1) { ?><br><span class="label label-warning">optional</span><? } ?> | <?= paramTag.joinedTypes.replace('=','').replace(/[|\/]/g,'/') ?> | <?= paramTag.description ?> |
 <? }) ?>
+<? } ?>
 
 <? if (command.examples.length) { ?>
 ### Example
@@ -39,6 +41,14 @@ client.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>).then(callbac
 <?= example.code ?>
 ```
 <? }); ?>
+<? } ?>
+
+<? mobileSupport = command.raw.tags.filter(function(raw){ return raw.type === 'for' }); ?>
+<? mobileSupport = mobileSupport.length ? mobileSupport[0].string.split(',') : null ?>
+<? if (mobileSupport && mobileSupport.length > 0) { ?>
+    ### Support
+    <? mobileSupport = mobileSupport.map(function(os) { return '![Support for ' + os.trim() + '](/images/icons/' + os.trim() + '.svg "' + os.trim() + '")'; }) ?>
+    <?= mobileSupport.join(' ') ?>
 <? } ?>
 
 <? tag  = command.raw.tags.filter(function(raw){ return raw.type === 'uses' }); ?>
