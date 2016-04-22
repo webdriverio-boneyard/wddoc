@@ -20,19 +20,7 @@ if(command.paramTags) {
     });
 }
 
-var callbackParameter = 'result';
-if(commandName.indexOf('is') === 0) {
-    callbackParameter = commandName;
-} else if(commandName === 'getHTML') {
-    callbackParameter = 'html';
-} else if(commandName.indexOf('get') === 0) {
-    callbackParameter = commandName.slice(3);
-    callbackParameter = callbackParameter.slice(0,1).toLowerCase() + callbackParameter.slice(1);
-}
-
-?>)${<?= command.paramTags.length + 1 ?>:.then(function(<?= callbackParameter ?>) {
-    $0
-\})}]]></content>
+?>)${<?= command.paramTags.length + 1 ?>:]]></content>
     <tabTrigger><?= commandName ?></tabTrigger>
     <scope>source.js</scope>
     <description><?= description ?></description>
