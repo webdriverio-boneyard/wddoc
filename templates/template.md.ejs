@@ -43,6 +43,20 @@ browser.<?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>);
 <? }); ?>
 <? } ?>
 
+<? if (command.returnTags.length) { ?>
+### Returns
+
+<? command.returnTags.forEach(function(returnTag) { ?>- **&lt;<?= returnTag.joinedTypes.replace('=','').replace(/[|\/]/g,'/') ?>&gt;**: <?= returnTag.description ?>
+<? }) ?>
+<? } ?>
+
+<? if (command.throwsTags.length) { ?>
+### Throws
+
+<? command.throwsTags.forEach(function(throwsTag) { ?>- **<?= throwsTag.joinedTypes.replace('=','').replace(/[|\/]/g,'/') ?>**: <?= throwsTag.description ?>
+<? }) ?>
+<? } ?>
+
 <? mobileSupport = command.raw.tags.filter(function(raw){ return raw.type === 'for' }); ?>
 <? mobileSupport = mobileSupport.length ? mobileSupport[0].string.split(',') : null ?>
 <? if (mobileSupport && mobileSupport.length > 0) { ?>
