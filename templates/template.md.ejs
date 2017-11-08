@@ -22,8 +22,7 @@ description: "<?= description ?>"
 ### Usage
 
 ```js
-<? if (!docfile.filename.startsWith("$")) { ?>
-browser.<? }?><?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>);
+<? if (!docfile.filename.startsWith("$")) { ?>browser.<? }?><?= docfile.filename.slice(0,-3) ?>(<?= command.paramStr ?>);
 ```
 
 <? if (command.paramTags.length) { ?>
